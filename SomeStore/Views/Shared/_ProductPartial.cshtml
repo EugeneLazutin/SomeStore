@@ -1,0 +1,13 @@
+﻿@model SomeStore.Infrustructure.DbEntities.Product
+
+<div class="row">
+    <div class="col-md-4 col-sm-6">
+        <figure>
+            <img class="img-responsive" alt="Product image" src="@Url.Content(Model.ImageUrl)" />
+        </figure>
+    </div>
+    <div class="col-md-8 col-sm-6">
+        <h4>@Model.Name <small title="Price, $">(@Model.Price)</small></h4>
+        <p>@Model.Description</p>
+    </div>
+</div>

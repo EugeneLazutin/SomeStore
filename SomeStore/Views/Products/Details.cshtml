@@ -1,0 +1,26 @@
+﻿@using SomeStore.Infrustructure.Constants
+@model SomeStore.Infrustructure.DbEntities.Product
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product details</h2>
+
+<hr/>
+
+@Html.Partial("_ProductDetailsPartial", Model)
+
+<hr />
+
+<p>
+    @if (User.IsInRole(AppRoles.Admin))
+    {
+        <text>
+            @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
+        </text>
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

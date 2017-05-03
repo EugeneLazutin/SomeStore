@@ -1,0 +1,28 @@
+﻿@using SomeStore.Infrustructure.Constants
+@model IEnumerable<SomeStore.Infrustructure.DbEntities.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Product list</h2>
+
+@if (User.IsInRole(AppRoles.Admin))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-6">
+            <h3>@Html.ActionLink(item.Name, "Details", new { id = item.Id }) <small title="Price, $">(@item.Price)</small></h3>
+            <figure>
+                <img src="@Url.Content(item.ImageUrl)" alt="Product image" class="img-responsive" />
+            </figure>
+        </div>
+    }
+</div>

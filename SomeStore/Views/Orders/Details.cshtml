@@ -1,0 +1,30 @@
+﻿@model SomeStore.Infrustructure.DbEntities.ShoppingCart
+
+@{
+    ViewBag.Title = "Order Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Order #@Model.Id, Total amount: <b>@Model.CartItems.Sum(x => x.Product.Price * x.Quantity)$</b></h2>
+
+@foreach (var item in Model.CartItems)
+{
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <figure>
+                <img class="img-responsive" alt="Product image" src="@Url.Content(item.Product.ImageUrl)" />
+            </figure>
+        </div>
+        <div class="col-md-8 col-sm-6">
+            <h4>@item.Product.Name <small title="Price, $">(@item.Product.Price)</small></h4>
+            <p>@item.Product.Description</p>
+            <p>Quantity: @item.Quantity</p>
+        </div>
+    </div>
+
+    <hr />
+}
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

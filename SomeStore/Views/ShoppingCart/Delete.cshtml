@@ -1,0 +1,24 @@
+﻿@model SomeStore.Infrustructure.DbEntities.Product
+
+@{
+    ViewBag.Title = "Delete from Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this item from cart?</h3>
+<div>
+    @Html.Partial("_ProductPartial", Model)
+
+    <hr/>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to Shopping Cart", "Index")
+        </div>
+    }
+</div>

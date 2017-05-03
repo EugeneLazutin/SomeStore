@@ -1,0 +1,57 @@
+﻿@model List<SomeStore.Infrustructure.DbEntities.CartItem>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var index = 0;
+}
+
+<h2>Shopping Cart</h2>
+
+@if (Model != null && Model.Any())
+{
+    using (Html.BeginForm("Update", "ShoppingCart", FormMethod.Post))
+    {
+        foreach (var item in Model)
+        {
+            <input type="hidden" value="@item.Id" name="@($"items[{index}].Id")"/>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <figure>
+                        <img class="img-responsive" alt="Product image" src="@Url.Content(item.Product.ImageUrl)"/>
+                    </figure>
+                </div>
+                <div class="col-md-8 col-sm-6">
+                    <h4>@item.Product.Name <small title="Price, $">(@item.Product.Price)</small> @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default" })</h4>
+                    <p>@item.Product.Description</p>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Quantity:</label>
+                        <div class="col-md-10">
+                            <input type="number" value="@item.Quantity" min="1" max="999" step="1" class="form-control" name="@($"items[{index}].Quantity")" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
+            index++;
+        }
+
+
+        <div class="clearfix">
+            <div class="pull-left">
+                <a class="btn btn-default" href="@Url.Action("CreateOrder")">Create Order</a>&nbsp;
+                <button type="submit" class="btn btn-default pull-right">Update Items</button>
+            </div>
+            <div class="pull-right">
+                Total amount: <b>@Model.Sum(x => x.Product.Price * x.Quantity)$</b>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h4 class="text-center">Your shopping cart is empty. Add some products from @Html.ActionLink("catalog", "Index", "Products").</h4>
+}

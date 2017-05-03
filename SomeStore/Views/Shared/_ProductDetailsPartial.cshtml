@@ -1,0 +1,25 @@
+﻿@model SomeStore.Infrustructure.DbEntities.Product
+
+<div class="row">
+    <div class="col-md-4 col-sm-6">
+        <figure>
+            <img class="img-responsive" alt="Product image" src="@Url.Content(Model.ImageUrl)" />
+        </figure>
+    </div>
+    <div class="col-md-8 col-sm-6">
+        <h4>@Model.Name <small title="Price, $">(@Model.Price)</small></h4>
+        <p>@Model.Description</p>
+        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+        {
+            <div class="form-group">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-default">Add to Cart</button>
+                </div>
+                <div class="col-md-10">
+                    <input type="hidden" value="@Model.Id" name="id"/>
+                    <input type="number" value="1" min="1" max="999" step="1" class="form-control" name="qty" required/>
+                </div>
+            </div>
+        }
+    </div>
+</div>
